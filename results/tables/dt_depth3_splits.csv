@@ -1,0 +1,8 @@
+node,feature,threshold_standardised,threshold_raw,samples
+0,lbp8_0,0.525,0.0797,12696
+1,sat_bin10,0.005,0.0243,8319
+2,val_bin11,-0.63,0.0092,4468
+5,lbp8_4,0.755,0.1816,3851
+8,hue_bin24,-0.463,0.0004,4377
+9,sat_bin9,-0.117,0.026,1709
+12,sat_bin3,-0.107,0.0551,2668

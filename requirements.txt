@@ -1,0 +1,12 @@
+# Python >= 3.11
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+scikit-learn>=1.4
+scikit-image>=0.22
+matplotlib>=3.8
+pillow>=10.0
+joblib>=1.3
+# workstreams E and F only (CNN, Grad-CAM, transfer learning)
+torch>=2.2
+torchvision>=0.17

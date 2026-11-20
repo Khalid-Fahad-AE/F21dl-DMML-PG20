@@ -1,0 +1,9 @@
+leaf,samples,majority,purity
+3,2261,Bacterial spot,0.501
+4,2207,Late blight,0.309
+6,2014,YLCV,0.549
+7,1837,YLCV,0.947
+10,1114,Spider mites,0.522
+11,595,YLCV,0.63
+13,1233,Septoria,0.297
+14,1435,Healthy,0.568

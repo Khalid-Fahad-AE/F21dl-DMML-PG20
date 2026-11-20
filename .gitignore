@@ -1,0 +1,10 @@
+data/plantvillage_color
+data/plantdoc
+data/cache/
+data/features.npz
+data/feature_transform.pkl
+results/models/*.pkl
+results/models/*.pt
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

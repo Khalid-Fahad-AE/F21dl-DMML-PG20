@@ -1,0 +1,11 @@
+class,mean_hue,mean_sat,mean_val
+Bacterial spot,0.388,0.219,0.446
+Early blight,0.457,0.223,0.463
+Late blight,0.432,0.203,0.478
+Leaf mold,0.48,0.244,0.514
+Septoria,0.575,0.245,0.561
+Spider mites,0.463,0.217,0.506
+Target spot,0.589,0.19,0.502
+YLCV,0.276,0.299,0.488
+Mosaic virus,0.667,0.206,0.506
+Healthy,0.527,0.171,0.487

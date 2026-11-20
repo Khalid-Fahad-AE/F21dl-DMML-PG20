@@ -1,0 +1,11 @@
+algo,split,silhouette,ARI,NMI
+k-means,train,0.0657,0.1517,0.233
+k-means,test,0.0699,0.1714,0.251
+GMM (diag),train,-0.0091,0.1223,0.2657
+GMM (diag),test,-0.0136,0.1357,0.2748
+GMM (full),train,0.0173,0.2086,0.2893
+GMM (full),test,0.0219,0.2301,0.3092
+k-means on hsv only,train,0.1585,0.2214,0.3379
+k-means on hog only,train,0.051,0.0789,0.1695
+k-means on lbp only,train,0.1788,0.0841,0.2284
+k-means on pix only,train,0.1158,0.0871,0.1666

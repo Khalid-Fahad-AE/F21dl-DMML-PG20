@@ -1,0 +1,11 @@
+class_name,train,val,test,total,share_%
+Bacterial spot,1488,319,320,2127,11.7
+Early blight,700,150,150,1000,5.5
+Late blight,1328,282,282,1892,10.4
+Leaf mold,665,144,143,952,5.3
+Septoria,1239,267,264,1770,9.8
+Spider mites,1173,251,252,1676,9.2
+Target spot,982,210,212,1404,7.7
+YLCV,3751,802,802,5355,29.5
+Mosaic virus,261,56,56,373,2.1
+Healthy,1109,237,238,1584,8.7

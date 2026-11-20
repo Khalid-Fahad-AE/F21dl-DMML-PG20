@@ -1,0 +1,5 @@
+params,mean_train_score,mean_test_score,std_test_score,mean_fit_time
+"{'class_weight': 'balanced_subsample', 'max_features': 'sqrt', 'min_samples_leaf': 3}",0.9996480902966505,0.8791334762376305,0.006709576851577483,46.145826530456546
+"{'class_weight': 'balanced_subsample', 'max_features': 'sqrt', 'min_samples_leaf': 1}",1.0,0.8671111674095675,0.005282055667938541,49.11858863830567
+"{'class_weight': None, 'max_features': 'sqrt', 'min_samples_leaf': 1}",1.0,0.8318447380612554,0.010674136481436374,54.360723447799685
+"{'class_weight': None, 'max_features': 'sqrt', 'min_samples_leaf': 3}",0.9988741448880001,0.8265960869088731,0.01105879157187546,47.833968591690066

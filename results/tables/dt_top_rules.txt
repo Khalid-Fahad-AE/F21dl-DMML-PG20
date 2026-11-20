@@ -1,0 +1,94 @@
+|--- lbp8_0 <= 0.53
+|   |--- sat_bin10 <= 0.01
+|   |   |--- val_bin11 <= -0.63
+|   |   |   |--- sat_bin5 <= 0.48
+|   |   |   |   |--- lbp8_8 <= 0.08
+|   |   |   |   |   |--- truncated branch of depth 11
+|   |   |   |   |--- lbp8_8 >  0.08
+|   |   |   |   |   |--- truncated branch of depth 8
+|   |   |   |--- sat_bin5 >  0.48
+|   |   |   |   |--- hue_bin19 <= -0.24
+|   |   |   |   |   |--- truncated branch of depth 8
+|   |   |   |   |--- hue_bin19 >  -0.24
+|   |   |   |   |   |--- truncated branch of depth 8
+|   |   |--- val_bin11 >  -0.63
+|   |   |   |--- hue_bin2 <= -0.15
+|   |   |   |   |--- hue_bin28 <= -0.39
+|   |   |   |   |   |--- truncated branch of depth 11
+|   |   |   |   |--- hue_bin28 >  -0.39
+|   |   |   |   |   |--- truncated branch of depth 11
+|   |   |   |--- hue_bin2 >  -0.15
+|   |   |   |   |--- hue_bin28 <= -0.50
+|   |   |   |   |   |--- truncated branch of depth 7
+|   |   |   |   |--- hue_bin28 >  -0.50
+|   |   |   |   |   |--- truncated branch of depth 11
+|   |--- sat_bin10 >  0.01
+|   |   |--- lbp8_4 <= 0.75
+|   |   |   |--- pix_r5_c8_R <= -0.03
+|   |   |   |   |--- val_bin0 <= 0.05
+|   |   |   |   |   |--- truncated branch of depth 10
+|   |   |   |   |--- val_bin0 >  0.05
+|   |   |   |   |   |--- truncated branch of depth 5
+|   |   |   |--- pix_r5_c8_R >  -0.03
+|   |   |   |   |--- sat_bin0 <= 0.26
+|   |   |   |   |   |--- truncated branch of depth 8
+|   |   |   |   |--- sat_bin0 >  0.26
+|   |   |   |   |   |--- truncated branch of depth 10
+|   |   |--- lbp8_4 >  0.75
+|   |   |   |--- sat_bin5 <= -0.47
+|   |   |   |   |--- lbp8_4 <= 1.06
+|   |   |   |   |   |--- truncated branch of depth 6
+|   |   |   |   |--- lbp8_4 >  1.06
+|   |   |   |   |   |--- truncated branch of depth 4
+|   |   |   |--- sat_bin5 >  -0.47
+|   |   |   |   |--- hue_bin3 <= 0.21
+|   |   |   |   |   |--- truncated branch of depth 4
+|   |   |   |   |--- hue_bin3 >  0.21
+|   |   |   |   |   |--- truncated branch of depth 5
+|--- lbp8_0 >  0.53
+|   |--- hue_bin24 <= -0.46
+|   |   |--- sat_bin9 <= -0.12
+|   |   |   |--- sat_bin7 <= -0.76
+|   |   |   |   |--- pix_r3_c11_R <= -0.17
+|   |   |   |   |   |--- truncated branch of depth 5
+|   |   |   |   |--- pix_r3_c11_R >  -0.17
+|   |   |   |   |   |--- truncated branch of depth 7
+|   |   |   |--- sat_bin7 >  -0.76
+|   |   |   |   |--- hue_bin7 <= -0.22
+|   |   |   |   |   |--- truncated branch of depth 11
+|   |   |   |   |--- hue_bin7 >  -0.22
+|   |   |   |   |   |--- truncated branch of depth 8
+|   |   |--- sat_bin9 >  -0.12
+|   |   |   |--- val_bin3 <= -0.39
+|   |   |   |   |--- hue_bin4 <= -0.30
+|   |   |   |   |   |--- truncated branch of depth 7
+|   |   |   |   |--- hue_bin4 >  -0.30
+|   |   |   |   |   |--- truncated branch of depth 5
+|   |   |   |--- val_bin3 >  -0.39
+|   |   |   |   |--- sat_bin6 <= 0.34
+|   |   |   |   |   |--- truncated branch of depth 6
+|   |   |   |   |--- sat_bin6 >  0.34
+|   |   |   |   |   |--- truncated branch of depth 5
+|   |--- hue_bin24 >  -0.46
+|   |   |--- sat_bin3 <= -0.11
+|   |   |   |--- sat_bin10 <= -0.84
+|   |   |   |   |--- pix_r14_c12_R <= -0.37
+|   |   |   |   |   |--- truncated branch of depth 4
+|   |   |   |   |--- pix_r14_c12_R >  -0.37
+|   |   |   |   |   |--- truncated branch of depth 5
+|   |   |   |--- sat_bin10 >  -0.84
+|   |   |   |   |--- hue_bin0 <= -0.54
+|   |   |   |   |   |--- truncated branch of depth 9
+|   |   |   |   |--- hue_bin0 >  -0.54
+|   |   |   |   |   |--- truncated branch of depth 9
+|   |   |--- sat_bin3 >  -0.11
+|   |   |   |--- lbp8_0 <= 0.99
+|   |   |   |   |--- hue_bin0 <= -0.54
+|   |   |   |   |   |--- truncated branch of depth 8
+|   |   |   |   |--- hue_bin0 >  -0.54
+|   |   |   |   |   |--- truncated branch of depth 7
+|   |   |   |--- lbp8_0 >  0.99
+|   |   |   |   |--- pix_r4_c14_R <= 0.80
+|   |   |   |   |   |--- truncated branch of depth 9
+|   |   |   |   |--- pix_r4_c14_R >  0.80
+|   |   |   |   |   |--- truncated branch of depth 5
