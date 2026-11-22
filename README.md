@@ -78,6 +78,13 @@ confusion matrices: `results/figures/cm_*.png`; headline figure: `results/figure
   same score in ~⅓ of the epochs; without dropout the network memorises the training set by epoch 3. Hand-crafted
   features beat raw pixels (0.899 vs 0.853) with 11× fewer parameters (1.1M vs 12.9M), which is the motivation for convolutions.
 * **Hardest class**: Early blight (best F1 0.73), confused with Late blight and YLCV.
+* **Feature selection** (`src/feature_selection.py`, validation split, random forest): the 64 colour-histogram
+  features alone score macro-F1 0.936, *higher* than all 2,624 features (0.887). Removing colour costs 0.119;
+  removing HOG shape slightly *improves* the score. A mutual-information filter peaks at the top 500 features (0.914).
+  Colour drives the classifier, consistent with the background/session bias above.
+* **Reliability** (`src/seeds.py`): over 5 seeds, random forest 0.898 ± 0.003 and MLP 0.898 ± 0.004 test macro-F1.
+  Paired bootstrap 95% CI for RF − MLP: [−0.014, +0.016], so the two are tied; both beat logistic regression
+  (0.859, CI 0.844–0.873).
 
 ## How to reproduce
 
@@ -103,6 +110,8 @@ python src/classic.py         # C  DT, NB, KNN, LR, RF with 5-fold CV           
 python src/dt_explain.py      # C  interpretable shallow trees                                      <1 min
 python src/mlp.py             # D  MLP experiments                                                  ~20 min
 python src/plantdoc.py        # F  field-photo test of the models above                              ~1 min
+python src/feature_selection.py  # B/C block ablation + mutual-information filter                   ~12 min
+python src/seeds.py           # C/D seed variance + bootstrap confidence intervals                  ~12 min
 # 3. GPU part (E, F): notebooks/run_EF_on_colab.ipynb, or:
 python src/cnn.py --aug all --size 128
 python src/gradcam.py --model CNN_scratch_full_128

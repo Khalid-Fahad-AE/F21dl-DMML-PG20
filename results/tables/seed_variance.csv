@@ -1,0 +1,11 @@
+model,seed,test_macro_f1
+RandomForest,0,0.8984
+MLP_features,0,0.8969
+RandomForest,1,0.895
+MLP_features,1,0.8921
+RandomForest,2,0.8983
+MLP_features,2,0.904
+RandomForest,3,0.8956
+MLP_features,3,0.8965
+RandomForest,4,0.9025
+MLP_features,4,0.8993

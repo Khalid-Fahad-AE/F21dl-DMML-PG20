@@ -1,0 +1,10 @@
+features,n_features,val_macro_f1,drop_vs_all,fit_s
+all 4 blocks,2624,0.8881,0.0,69.3115
+without hsv,2560,0.7691,0.119,70.3558
+without hog,860,0.9027,-0.0146,28.8741
+without lbp,2596,0.8733,0.0148,69.2787
+without pix,1856,0.8962,-0.0081,66.9296
+hsv only,64,0.9357,-0.0476,7.7803
+hog only,1764,0.5358,0.3523,67.1312
+lbp only,28,0.5596,0.3285,7.0079
+pix only,768,0.7204,0.1677,29.5512
