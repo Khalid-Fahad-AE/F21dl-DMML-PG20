@@ -8,3 +8,8 @@ results/models/*.pt
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# local environments and OS files
+.venv/
+venv/
+.DS_Store
