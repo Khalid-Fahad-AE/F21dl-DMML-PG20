@@ -102,8 +102,10 @@ def main():
     rows, examples = [], {"correct": [], "wrong": []}
     for s in range(0, len(te), 32):
         chunk = te.iloc[s:s + 32]
-        ims = [Image.open(DEFAULT_IMG_ROOT / p).convert("RGB").resize((a.size, a.size)) for p in chunk.path]
-        x = torch.stack([tf(im) for im in ims]).to(device)
+        originals = [Image.open(DEFAULT_IMG_ROOT / p).convert("RGB") for p in chunk.path]
+        # feed the model exactly as in training (tf resizes the original); resize separately only for display
+        x = torch.stack([tf(im) for im in originals]).to(device)
+        ims = [im.resize((a.size, a.size), Image.BILINEAR) for im in originals]
         cams, pred, prob = cam_fn(x)
         for im, cam, pr, pb, (_, r) in zip(ims, cams, pred, prob, chunk.iterrows()):
             rgb = np.asarray(im) / 255.0
