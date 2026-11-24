@@ -60,11 +60,32 @@ tested on **PlantDoc** field photos, to measure how far lab results carry over t
 Full table: `results/tables/summary_test.md`; per-class F1: `results/tables/per_class_f1.csv`;
 confusion matrices: `results/figures/cm_*.png`; headline figure: `results/figures/model_comparison.png`.
 
-### Key findings (A–D)
+### Hypotheses
+* **H1: transfer learning beats every classic model.** Supported: fine-tuned backbones reach macro-F1
+  0.984–0.991 vs 0.904 for the random forest. But a small CNN trained from scratch does just as well (0.995),
+  so ImageNet pretraining is not needed on 12,700 uniform lab images.
+* **H2: every model loses substantial accuracy on field photos.** Supported for all 14 models: macro-F1 drops
+  by 0.60–0.86 from PlantVillage to PlantDoc (`results/tables/summary_plantdoc.md`).
+* **H3: augmentation narrows that loss.** Partly supported: full augmentation (colour jitter + zoom) raises the
+  small CNN's PlantDoc macro-F1 from 0.14 to 0.18, a small gain on only 746 photos, so a trend rather than a
+  proven effect. Geometric augmentation alone (0.13) has no effect, because rotations and flips do not change
+  backdrop or lighting.
+
+### Key findings
 * **Field photos break every feature-based model.** On PlantDoc all models fall to macro-F1 0.06–0.09
   (accuracy 15–17%, below the 20% majority-class rate). Predictions collapse onto *Late blight* and *YLCV*:
   the features encode photo conditions (backdrop, lighting) as much as lesions. This is the "controlled
-  conditions" risk from our pitch, now measured. The E/F notebook runs the same test for CNNs.
+  conditions" risk from our pitch, now measured.
+* **CNNs do better in the field, but are still far from usable.** PlantDoc macro-F1 is 0.13–0.21 (accuracy
+  22–33%) for the six neural image models, 2–3× the feature-based models. ResNet50 is best (0.206) at ~131 ms
+  per image on a CPU, vs ~28 ms for MobileNetV2 (`results/tables/transfer_cost.csv`). Healthy field leaves are
+  almost never recognised (Healthy F1 ≤ 0.06).
+* **Fine-tuning matters for transfer learning**: unfreezing the last blocks adds 0.13–0.16 macro-F1 over a
+  frozen backbone (0.83–0.86 → 0.98–0.99).
+* **Grad-CAM: the CNNs look at the leaf, but not only at the leaf.** On correct predictions the leaf-focus ratio
+  (share of attention on the leaf ÷ share of the image that is leaf) is 1.48 for the plain CNN, 1.67 with full
+  augmentation and 1.60 for MobileNetV2; wrong predictions focus less (1.25–1.51). Still, 37–43% of the attention
+  on correct predictions falls off the leaf (`results/tables/gradcam_summary_*.csv`).
 * **Backdrop bias is visible in the EDA**: hue histograms differ by class in the 0.6–0.95 (purple/grey backdrop)
   range, not only in leaf colours. t-SNE shows several separate "Healthy" islands and an isolated Late-blight group,
   consistent with photo sessions.
