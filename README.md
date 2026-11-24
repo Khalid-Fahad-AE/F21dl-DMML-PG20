@@ -147,6 +147,7 @@ python src/transfer.py --arch all
 # 4. tables + headline figure
 python src/summarise.py
 python tests/test_mlp_grad.py  # gradient check for the NumPy MLP
+python tests/test_splits.py    # split integrity: sizes, no leaf leakage, no duplicates, stratification
 ```
 
 ## Repository layout
@@ -158,6 +159,7 @@ notebooks/run_EF_on_colab.ipynb   GPU runs for the CNN, Grad-CAM, transfer learn
 results/tables/                every number in the report (CSV / JSON / markdown)
 results/figures/               every figure in the report
 tests/test_mlp_grad.py         finite-difference gradient check
+tests/test_splits.py           integrity checks on the shared split (standard library only)
 ```
 
 ## Notes
