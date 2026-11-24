@@ -95,10 +95,12 @@ pip install -r requirements.txt
 # 1. data (only the tomato folders, ~314 MB)
 git clone --filter=blob:none --no-checkout --depth 1 https://github.com/spMohanty/PlantVillage-Dataset.git ../pv
 cd ../pv && git sparse-checkout init --no-cone && echo '/raw/color/Tomato___*/' > .git/info/sparse-checkout && git checkout master && cd -
-ln -s ../pv/raw/color data/plantvillage_color
+# symlink targets are resolved from inside data/, so they need ../../ to reach the repo's sibling folders
+ln -s ../../pv/raw/color data/plantvillage_color
 git clone --filter=blob:none --no-checkout --depth 1 https://github.com/pratikkayal/PlantDoc-Dataset.git ../plantdoc
 cd ../plantdoc && git sparse-checkout init --no-cone && printf '/train/Tomato*\n/test/Tomato*\n' > .git/info/sparse-checkout && git checkout master && cd -
-ln -s ../plantdoc data/plantdoc
+ln -s ../../plantdoc data/plantdoc
+ls data/plantvillage_color data/plantdoc > /dev/null && echo "data links OK"
 
 # 2. pipeline (CPU; times measured on a 2-core machine)
 python src/data.py            # A  splits.csv (already committed; re-running reproduces it exactly)  ~1 min
