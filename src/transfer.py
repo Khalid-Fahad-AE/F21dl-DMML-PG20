@@ -76,6 +76,7 @@ def run(arch, epochs1, epochs2, batch_size, workers):
     # stage 2: partial unfreeze, lower learning rate
     set_trainable(model, arch, unfreeze)
     model, h2, t2 = train(model, tr, va, device, epochs=epochs2, lr=1e-4, patience=4, log_name=f"{name}_stage2")
+    MODELS.mkdir(parents=True, exist_ok=True)  # results/models/ is not in git, so a fresh clone lacks it
     torch.save(model.state_dict(), MODELS / f"{name}.pt")
     y, p, t_inf = predict(model, te, device)
     lat_cpu = latency_ms(model.to("cpu"), SIZE, torch.device("cpu"))
