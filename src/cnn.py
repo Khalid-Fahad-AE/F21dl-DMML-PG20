@@ -13,6 +13,8 @@ Every run is scored on the PlantVillage test split AND on the PlantDoc field pho
     python src/cnn.py --aug full --size 224
 """
 import argparse
+import copy
+import json
 
 import torch
 import torch.nn as nn
@@ -20,7 +22,7 @@ import torch.nn as nn
 from data import ROOT
 from evaluate import evaluate
 from plantdoc import present_labels
-from torch_common import (MODELS, count_params, get_device, latency_ms, make_loaders, plot_history, predict,
+from torch_common import (MODELS, TAB, count_params, get_device, latency_ms, make_loaders, plot_history, predict,
                           seed_everything, train)
 
 FIG = ROOT / "results" / "figures"
@@ -57,11 +59,20 @@ def run(aug, size, epochs, batch_size, workers):
     tr, va, te, pdoc = make_loaders(size, aug, batch_size, workers)
     model = SmallCNN()
     name = f"CNN_scratch_{aug}_{size}"
-    model, hist, train_time = train(model, tr, va, device, epochs=epochs, lr=1e-3, patience=6, log_name=name)
-    MODELS.mkdir(parents=True, exist_ok=True)
-    torch.save(model.state_dict(), MODELS / f"{name}.pt")
+    ckpt, hist_file = MODELS / f"{name}.pt", TAB / f"history_{name}.json"
+    if ckpt.exists() and hist_file.exists():  # trained before a crash/disconnect: reuse, don't retrain
+        model.load_state_dict(torch.load(ckpt, map_location="cpu"))
+        model.to(device)
+        hist = json.load(open(hist_file))
+        train_time = hist[-1]["elapsed_s"]
+        print(f"[{name}] found saved checkpoint, skipping training")
+    else:
+        model, hist, train_time = train(model, tr, va, device, epochs=epochs, lr=1e-3, patience=6, log_name=name)
+        MODELS.mkdir(parents=True, exist_ok=True)
+        torch.save(model.state_dict(), ckpt)
     y, p, t = predict(model, te, device)
-    lat = latency_ms(model, size, torch.device("cpu")) if device.type != "cpu" else latency_ms(model, size, device)
+    # CPU latency (what a phone-class device would see): measure on a CPU copy, keep the original on the GPU
+    lat = latency_ms(copy.deepcopy(model).to("cpu"), size, torch.device("cpu"))
     evaluate(name, y, p, train_time=train_time, infer_time=t, n_params=count_params(model), group="E CNN",
              notes=f"aug={aug}, {size}px, epochs run={len(hist)}, CPU latency {lat:.1f} ms/img (batch 1)")
     if pdoc is not None:
