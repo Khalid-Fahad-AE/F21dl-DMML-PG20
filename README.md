@@ -36,10 +36,17 @@ tested on **PlantDoc** field photos, to measure how far lab results carry over t
 * **PlantDoc** (github.com/pratikkayal/PlantDoc-Dataset): 746 tomato field photos in 9 of our classes
   (no Target spot), used **only** as an outside test set.
 
-## Results so far (PlantVillage test split, 2,719 images)
+## Results (PlantVillage test split, 2,719 images)
 
 | Model | Workstream | Accuracy | Macro-P | Macro-R | **Macro-F1** | PlantDoc macro-F1 |
 |---|---|---|---|---|---|---|
+| Small CNN from scratch, no augmentation (128 px) | E | 0.996 | 0.995 | 0.995 | **0.995** | 0.142 |
+| Small CNN from scratch, geometric aug. | E | 0.994 | 0.993 | 0.993 | **0.993** | 0.134 |
+| EfficientNet-B0, fine-tuned (224 px) | F | 0.993 | 0.992 | 0.991 | **0.991** | 0.176 |
+| Small CNN from scratch, full aug. | E | 0.992 | 0.989 | 0.992 | **0.990** | 0.175 |
+| ResNet50, fine-tuned | F | 0.990 | 0.988 | 0.988 | **0.988** | 0.206 |
+| MobileNetV2, fine-tuned | F | 0.986 | 0.983 | 0.985 | **0.984** | 0.150 |
+| EfficientNet-B0 / MobileNetV2 / ResNet50, frozen backbone | F | 0.885 / 0.874 / 0.861 | | | 0.862 / 0.840 / 0.831 | |
 | Random Forest (300 trees) | C | 0.922 | 0.917 | 0.894 | **0.904** | 0.060 |
 | MLP on features (1024-512, BN, dropout 0.3) | D | 0.918 | 0.902 | 0.898 | **0.899** | 0.071 |
 | Logistic Regression (PCA features) | C | 0.886 | 0.866 | 0.855 | 0.859 | 0.080 |
@@ -49,8 +56,6 @@ tested on **PlantDoc** field photos, to measure how far lab results carry over t
 | Decision Tree (depth 20) | C | 0.812 | 0.777 | 0.771 | 0.773 | 0.094 |
 | Gaussian Naive Bayes | B/C | 0.698 | 0.659 | 0.708 | 0.672 | 0.075 |
 | Decision Tree, depth 5 / depth 3 (interpretable) | C | 0.656 / 0.535 | | | 0.505 / 0.319 | |
-| Small CNN from scratch (none / geo / full aug) | E | *run `notebooks/run_EF_on_colab.ipynb`* | | | | |
-| MobileNetV2 / EfficientNet-B0 / ResNet50 | F | *run the notebook* | | | | |
 
 Full table: `results/tables/summary_test.md`; per-class F1: `results/tables/per_class_f1.csv`;
 confusion matrices: `results/figures/cm_*.png`; headline figure: `results/figures/model_comparison.png`.
