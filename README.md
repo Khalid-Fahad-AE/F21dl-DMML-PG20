@@ -4,14 +4,66 @@ Classifying 10 tomato leaf conditions (9 diseases + healthy) from the **original
 from classic models on hand-crafted features up to CNNs and transfer learning. Every model is then
 tested on **PlantDoc** field photos, to measure how far lab results carry over to the real world.
 
-| Requirement | Where |
-|---|---|
-| R1 questions & objectives | below, and report §1 |
-| R2 preprocessing, EDA, clustering | `src/data.py`, `src/eda.py`, `src/features.py`, `src/clustering.py` |
-| Generative task | `src/generative.py` (class-conditional GMM vs Naive Bayes) |
-| R3 ≥3 classic models + DT discussion | `src/classic.py`, `src/dt_explain.py`, shared metrics in `src/evaluate.py` |
-| R4 neural networks | `src/mlp.py` (MLP), `src/cnn.py` + `src/gradcam.py` (CNN), `src/transfer.py` (transfer learning) |
-| Real-world robustness | `src/plantdoc.py` (+ the PlantDoc step inside `cnn.py` / `transfer.py`) |
+**Project title:** Do tomato-leaf disease classifiers trained on lab photos still work on real field photos?
+
+**Group name:** PG20
+
+**Group members:** Saba Shaikh · [member 2] · [member 3] · [member 4] · [member 5]
+
+## Research objectives
+* Build a leakage-free version of PlantVillage tomato (duplicates removed, photos of one leaf kept in one split).
+* Measure how far classic models on colour, texture and shape features get, and which features they rely on.
+* Test whether unsupervised structure (k-means, GMM) follows disease labels, and whether a generative classifier beats Naive Bayes.
+* Compare MLPs, a CNN from scratch and pretrained CNNs against the classic models, including their cost.
+* Check what the CNNs look at (Grad-CAM) and whether any model still works on field photos (PlantDoc).
+
+## Milestones
+| Milestone | When | Status |
+|---|---|---|
+| Project pitch (D1): topic, datasets, questions, plan | Week 4 | done |
+| Data pipeline, split, EDA (R2) | by 20 Nov 2026 | done |
+| Features, clustering, generative model (R2) | by 20 Nov 2026 | done |
+| Classic models + decision-tree analysis (R3), MLP (R4) | by 20 Nov 2026 | done |
+| Feature selection, seed/bootstrap reliability | 22 Nov 2026 | done |
+| CNN, transfer learning, Grad-CAM, PlantDoc field test (R4) | 24 Nov 2026 | done |
+| Report and code (D2) | Week 11, 25 Nov 2026, 15:30 | in progress |
+| Presentation / mini-viva (D3) and peer assessment (D4) | Week 12 | to do |
+
+## Requirements and where to find them
+Permanent links point to commit `bd1fad6`.
+
+* **R2 Data analysis and exploration.** Cleans PlantVillage (MD5 + confirmed dHash de-duplication), builds the
+  grouped, stratified 70/15/15 split, explores class balance and colour bias, and extracts 2,624 hand-crafted
+  features (HSV, HOG, LBP, pixels) with PCA. k-means and GMM clustering are scored with silhouette, ARI and NMI;
+  feature selection uses a block ablation and a mutual-information filter.
+  [`data.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/data.py) ·
+  [`eda.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/eda.py) ·
+  [`features.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/features.py) ·
+  [`clustering.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/clustering.py) ·
+  [`feature_selection.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/feature_selection.py)
+* **Generative task.** One Gaussian mixture per class (fitted by EM) classifies with Bayes' rule and is compared
+  with Gaussian Naive Bayes on the same PCA inputs.
+  [`generative.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/generative.py)
+* **R3 Baseline models.** Decision tree, Naive Bayes, k-NN, logistic regression and random forest, tuned with
+  5-fold CV on macro-F1 and tested once; shallow trees give readable rules; five seeds and a paired bootstrap test
+  whether the top models differ.
+  [`classic.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/classic.py) ·
+  [`dt_explain.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/dt_explain.py) ·
+  [`evaluate.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/evaluate.py) ·
+  [`seeds.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/seeds.py)
+* **R4 Neural networks.** A NumPy MLP (batch norm, dropout, Adam, early stopping) on features and on pixels; a
+  small CNN from scratch with an augmentation ablation; fine-tuned MobileNetV2, EfficientNet-B0 and ResNet50;
+  Grad-CAM; and a PlantDoc field test of every model.
+  [`mlp.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/mlp.py) ·
+  [`cnn.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/cnn.py) ·
+  [`transfer.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/transfer.py) ·
+  [`gradcam.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/gradcam.py) ·
+  [`plantdoc.py`](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/src/plantdoc.py) ·
+  [Colab notebook](https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/notebooks/run_EF_on_colab.ipynb)
+
+**What the models predict (outputs):** one of 10 classes per leaf image: 9 tomato diseases or healthy.
+**What they predict from (inputs):** classic models and the feature MLP use the 2,624 hand-crafted features (or
+their 583 PCA components); the pixel MLP uses 64×64 RGB pixels; the CNNs use the image itself (128×128 or 224×224).
 
 ## Research questions
 1. How well do classic ML models on hand-crafted colour/texture/shape features separate the 10 classes, and which features matter?
@@ -35,6 +87,25 @@ tested on **PlantDoc** field photos, to measure how far lab results carry over t
   **Everyone uses this file.** Test is used once per final model; all tuning uses CV on train or the val split.
 * **PlantDoc** (github.com/pratikkayal/PlantDoc-Dataset): 746 tomato field photos in 9 of our classes
   (no Target spot), used **only** as an outside test set.
+* **Licences.** PlantDoc: Creative Commons Attribution 4.0 (CC BY 4.0), per its repository's `LICENSE.txt`.
+  PlantVillage: the source repository has no licence file; the images were released openly for research by
+  Hughes & Salathé (2015), whom we cite. Neither dataset is redistributed here: the pipeline downloads them from
+  the original repositories.
+* **Data collection.** No extra data was collected; the only change to the raw data is the de-duplication above.
+
+**Two examples from the data**
+
+| | PlantVillage (training data) | PlantDoc (field test) |
+|---|---|---|
+| File | `Tomato___Late_blight/06a7cfd9-…___GHLB2 Leaf 131.JPG` | `train/Tomato leaf bacterial spot/05-069f1.jpg` |
+| Label | Late blight (class 2) | Bacterial spot (class 0) |
+| What it looks like | one detached leaf, centred, on a plain grey/purple backdrop, 256×256 | leaves on the plant, cluttered background, natural light, any size |
+| Note | leaf `GHLB2 Leaf 131` has two more photos (`…131.1`, `…131.2`); all three are in the training split | never used for training or tuning |
+
+<details><summary>Sample grid: one PlantVillage image per class</summary>
+
+<img src="https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/results/figures/eda_sample_grid.png?raw=true" width="420" alt="PlantVillage sample grid">
+</details>
 
 ## Results (PlantVillage test split, 2,719 images)
 
@@ -56,6 +127,10 @@ tested on **PlantDoc** field photos, to measure how far lab results carry over t
 | Decision Tree (depth 20) | C | 0.812 | 0.777 | 0.771 | 0.773 | 0.094 |
 | Gaussian Naive Bayes | B/C | 0.698 | 0.659 | 0.708 | 0.672 | 0.075 |
 | Decision Tree, depth 5 / depth 3 (interpretable) | C | 0.656 / 0.535 | | | 0.505 / 0.319 | |
+
+<img src="https://github.com/Khalid-Fahad-AE/F21dl-DMML-PG20/blob/bd1fad6377dc6597d6f156ffedab5d01b06d94f2/results/figures/model_comparison.png?raw=true" width="560" alt="Macro-F1 on PlantVillage test vs PlantDoc field photos">
+
+*Macro-F1 on the PlantVillage test split (blue) and on PlantDoc field photos (orange), every model.*
 
 Full table: `results/tables/summary_test.md`; per-class F1: `results/tables/per_class_f1.csv`;
 confusion matrices: `results/figures/cm_*.png`; headline figure: `results/figures/model_comparison.png`.
@@ -105,7 +180,7 @@ confusion matrices: `results/figures/cm_*.png`; headline figure: `results/figure
   features beat raw pixels (0.899 vs 0.853) with 11× fewer parameters (1.1M vs 12.9M), which is the motivation for convolutions.
 * **Hardest class**: Early blight (best F1 0.73), confused with Late blight and YLCV.
 * **Feature selection** (`src/feature_selection.py`, validation split, random forest): the 64 colour-histogram
-  features alone score macro-F1 0.936, *higher* than all 2,624 features (0.887). Removing colour costs 0.119;
+  features alone score macro-F1 0.936, *higher* than all 2,624 features (0.888). Removing colour costs 0.119;
   removing HOG shape slightly *improves* the score. A mutual-information filter peaks at the top 500 features (0.914).
   Colour drives the classifier, consistent with the background/session bias above.
 * **Reliability** (`src/seeds.py`): over 5 seeds, random forest 0.898 ± 0.003 and MLP 0.898 ± 0.004 test macro-F1.
