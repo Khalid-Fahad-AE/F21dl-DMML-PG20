@@ -8,7 +8,7 @@ tested on **PlantDoc** field photos, to measure how far lab results carry over t
 
 **Group name:** PG20
 
-**Group members:** Saba Shaikh · [member 2] · [member 3] · [member 4] · [member 5]
+**Group members:** Saba Shaikh · [Khazi Mohammed Maazuddin] · [member 3] · [member 4] · [member 5]
 
 ## Research objectives
 * Build a leakage-free version of PlantVillage tomato (duplicates removed, photos of one leaf kept in one split).
